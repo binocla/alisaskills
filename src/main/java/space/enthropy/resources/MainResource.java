@@ -3,7 +3,7 @@ package space.enthropy.resources;
 import io.smallrye.common.constraint.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import space.enthropy.models.Response;
+import space.enthropy.models.SkillResponse;
 import space.enthropy.models.SkillRequest;
 import space.enthropy.services.CkorovodaService;
 
@@ -24,7 +24,7 @@ public class MainResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response ckorovoda(@NotNull @Valid SkillRequest request) {
+    public SkillResponse ckorovoda(@NotNull @Valid SkillRequest request) {
         LOGGER.info("Upcoming Request in Resource layer is: '{}'", request);
         return ckorovodaService.ckorovodaZhopa(request);
     }

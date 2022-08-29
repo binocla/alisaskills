@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import space.enthropy.models.Command;
 import space.enthropy.models.Response;
 import space.enthropy.models.SkillRequest;
+import space.enthropy.models.SkillResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.validation.Valid;
@@ -23,16 +24,20 @@ public class CkorovodaServiceImpl implements CkorovodaService {
 
     @Override
     @CacheResult(cacheName = "ckorovoda-cache")
-    public Response ckorovodaZhopa(@NotNull @Valid SkillRequest request) {
+    public SkillResponse ckorovodaZhopa(@NotNull @Valid SkillRequest request) {
         LOGGER.info("Upcoming Request in Service layer is: '{}'", request);
-        return CKOROVODA_ASKING.stream().filter(item -> StringUtils.containsAnyIgnoreCase(request.getRequest().getOriginalUtterance(),
-                item)).count() > 0L ? Response.builder()
-                .text("Очередная сиськожопостримерша, разводит школьников на деньги, флиртует с первым встречным")
-                .tts("Очередн+ая с+исько ж+опо стр+имерша, разводит шк+ольников на д+еньги, флирт+ует с п+ервым встр+ечным")
+        return CKOROVODA_ASKING.stream().anyMatch(item -> StringUtils.containsAnyIgnoreCase(request.getRequest().getOriginalUtterance(),
+                item)) ? SkillResponse.builder()
+                .response(Response.builder()
+                        .text("Очередная сиськожопостримерша, разводит школьников на деньги, флиртует с первым встречным")
+                        .tts("Очередн+ая с+исько ж+опо стр+имерша, разводит шк+ольников на д+еньги, флирт+ует с п+ервым встр+ечным")
+                        .build())
                 .version("1.0")
-                .build() : Response.builder()
-                .text(Command.UNKNOWN.getText())
-                .tts(Command.UNKNOWN_TTS.getText())
+                .build() : SkillResponse.builder()
+                .response(Response.builder()
+                        .text(Command.UNKNOWN.getText())
+                        .tts(Command.UNKNOWN_TTS.getText())
+                        .build())
                 .version("1.0")
                 .build();
     }

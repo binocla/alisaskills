@@ -8,14 +8,16 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Builder
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Response implements Serializable {
-    private static final long serialVersionUID = 7565916457895186294L;
+public class SkillResponse implements Serializable {
+    private static final long serialVersionUID = -9122693648548207033L;
 
-    private String text;
-    private String tts;
+    private Response response;
+    private String version;
+
 }
+

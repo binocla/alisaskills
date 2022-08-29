@@ -1,7 +1,7 @@
 package space.enthropy.services;
 
 import io.smallrye.common.constraint.NotNull;
-import space.enthropy.models.Response;
+import space.enthropy.models.SkillResponse;
 import space.enthropy.models.SkillRequest;
 
 import javax.validation.Valid;
@@ -16,5 +16,5 @@ public interface CkorovodaService {
      * @param request Request from the Client
      * @return Response, containing hardcoded text
      */
-    Response ckorovodaZhopa(@NotNull @Valid SkillRequest request);
+    SkillResponse ckorovodaZhopa(@NotNull @Valid SkillRequest request);
 }
